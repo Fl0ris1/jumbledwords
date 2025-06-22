@@ -3,6 +3,10 @@ from tkinter import *
 import random
 from tkinter import messagebox
 
+root=Tk()
+root.title("Jumbled Word Game")
+root.geometry("500x500+500+150")
+root.config(background="#8FB8DE")
 
 answers = [
     "apple",
@@ -39,17 +43,31 @@ answers = [
 words=[]
 
 def jumble():
+    global words
+    my_list=[]
+    new_word=""
     for word in answers:
-        new_word=random.shuffle(word)
+        new_word=""
+        my_list=[]
+        for ch in word:
+            my_list.append(ch)
+        random.shuffle(my_list) 
+        new_word="".join(my_list)
         words.append(new_word)
+        
+    return words
 
-root=Tk()
+main_words=jumble()  
+num=random.randrange(0,len(main_words),1)
+score=0
+q_count=0
+score_txt=""
+s_lbl=Label(root)
 
-
-root.title("Jumbled Word Game")
-root.geometry("500x500+500+150")
-root.config(background="#8FB8DE")
-
+def default():
+    global main_words, answers, num
+    text_lbl.config(text=main_words[num])
+    
 heading_lbl=Label(root,text="Jumbled Word Game",font=("consolas",18,"bold"),bg="#8FB8DE",fg="#EC5766")
 heading_lbl.pack(pady=5)
 
